@@ -11,6 +11,7 @@ import Login from './Login'
 import Home from './Home'
 import Admin from './Admin'
 import Profile from './Profile'
+import EditProfile from './EditProfile'
 
 const NoMatch = () => (
  <div>404</div>
@@ -36,9 +37,11 @@ class App extends Component {
         <div className="router">
           <Switch>
             <Route exact path="/"  onEnter={this.requireAuth} component={Home} />
+            <Route exact path="/home" component={Home} />
             <Route path="/login" component={Login} />
             <Route path="/admin" component={Admin} />
             <Route path="/Register" component={Register} />
+            <Route exact path="/profile/edit" component={EditProfile} />
             <Route path="/profile" component={Profile} />
             <Route  component={NoMatch} />
           </Switch>

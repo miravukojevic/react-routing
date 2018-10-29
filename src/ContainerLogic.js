@@ -11,12 +11,14 @@ class ContainerLogic extends Component {
         newItem: '',
         username:'',
         repeatPassword: '',
+        oldPassword: '',
         list: [],
         isOpen: false,
         isValidEmail: true,
         isValidUsername: true,
         isValidPasword: true,
         isValidRepeatPassword: true,
+        isValidOldPassword: true,
         password: ''
     }
 
@@ -53,6 +55,14 @@ class ContainerLogic extends Component {
             }
             return true
         }
+        const oldPassword = (value) => {
+            let checkCurrent= JSON.parse(localStorage.getItem('current'));
+            console.log(value)
+            if (checkCurrent.password == value) {
+                return true
+            }
+            return false
+        }
         if (inputName === 'email') {
             this.setState({
                 email: event.target.value,
@@ -71,9 +81,18 @@ class ContainerLogic extends Component {
         }
 
         if (inputName === 'password') {
+            console.log(this.state.password)
             this.setState({
                 password: event.target.value,
                 isValidPasword: password(event.target.value),
+            })
+
+            return;
+        }
+        if (inputName === 'oldPassword') {
+            this.setState({
+                oldPassword: event.target.value,
+                isValidOldPassword: oldPassword(event.target.value),
             })
 
             return;
@@ -86,6 +105,29 @@ class ContainerLogic extends Component {
 
             return;
         }
+    }
+    onUpdate = (e) => {
+        e.preventDefault();
+        console.log('update')
+        let loginCheck = JSON.parse(localStorage.getItem('list'));
+        let checkCurrent= JSON.parse(localStorage.getItem('current'));
+        let i = 0
+            for(i; i < loginCheck.length; i++){
+
+                console.log('LOOP', i)
+            
+                if(checkCurrent.email == loginCheck[i].id && checkCurrent.password == loginCheck[i].value.password) {
+
+                    console.log('MATCH USER')
+                    this.setState({
+                        username: loginCheck[i].value.username,
+                        email: loginCheck[i].id
+
+                    })
+                    // this.state.username = loginCheck[i].value.username
+
+                } 
+            }
     }
 
     onSubmit = (e) => {
@@ -142,26 +184,27 @@ class ContainerLogic extends Component {
 
         let loginCheck = JSON.parse(localStorage.getItem('list'));
         let checkAdmin= JSON.parse(localStorage.getItem('admin'));
-        if (checkAdmin){
-            this.props.history.push({
-                pathname: `/admin`
-            })
-        }
-
+        console.log(checkAdmin)
         let checkUser = false;
-        let i = 0
-        for(i; i < loginCheck.length; i++){
 
-            console.log('LOOP', i)
-           
-            if(this.state.email == loginCheck[i].id && this.state.password == loginCheck[i].value.password) {
+        // Check if user already exist in local storage
+        
+        
+            let i = 0
+            for(i; i < loginCheck.length; i++){
 
-                console.log('MATCH USER')
-               
-                checkUser = true
-            } 
-        }
+                console.log('LOOP', i)
+            
+                if(this.state.email == loginCheck[i].id && this.state.password == loginCheck[i].value.password) {
 
+                    console.log('MATCH USER')
+                
+                    checkUser = true
+                } 
+            }
+            
+
+        
         console.log('checkUser', checkUser)
 
         if (checkUser) {
@@ -171,11 +214,18 @@ class ContainerLogic extends Component {
             localStorage.setItem('current', JSON.stringify(
                 {
                     email: this.state.email,
-                    username: this.state.username 
+                    password: this.state.password,
+                    username: this.state.username
                 }))
         } else {
             this.setState({
                 isOpen: true
+            })
+        }
+        // Check if user that logged in is Admin
+        if (checkAdmin.email == this.state.email ){
+            this.props.history.push({
+                pathname: `/admin`
             })
         }
 
@@ -217,7 +267,8 @@ class ContainerLogic extends Component {
                    onSubmit: this.onSubmit,
                    id: this.id,
                    closeModal: this.closeModal,
-                   empty: this.empty
+                   empty: this.empty,
+                   onUpdate: this.onUpdate
 
                })}
              

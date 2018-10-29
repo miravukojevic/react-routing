@@ -7,34 +7,45 @@ import {
     Switch,
     withRouter } from 'react-router-dom'
 
-// const Home = () => {
-//     return ( 
-//         <div>
-//             <h1> Welcome to Task 5</h1>
-//             <ul>
-//                 <li>
-//                 <Link to="/login">Login</Link>
-//                 <Link to="/register">Register</Link>
-//                 </li>
-//             </ul>
-//         </div>
-//      );
-// }
  class Home extends React.Component {
      state = { 
-         isAuthenticated: false
+         isAuthenticated: false,
+         username: ''
       }
+      componentDidMount = () => {
+        let checkCurrent= JSON.parse(localStorage.getItem('current'));
+        console.log(checkCurrent)
+        if(checkCurrent){
+            this.setState({
+                isAuthenticated: true,
+                username: checkCurrent.email.substring(0, checkCurrent.email.lastIndexOf("@"))
+            })
+        }
+    }
+    logout = () => {
+        this.setState({
+            isAuthenticated: false
+        })
+        localStorage.removeItem('current');
+    }
+
      render() { 
+        
          return ( 
-             this.state.isAuthenticated ? <div>
-                <h1> Welcome to Task 5</h1>
+             
+             !this.state.isAuthenticated ? <div>
+                <h1> Please login or register to enter application</h1>
                 <ul>
                      <li>
                     <Link to="/login">Login</Link>
                     <Link to="/register">Register</Link>
                      </li>
                </ul>
-             </div> : <div><Link to="/profile">Profile</Link></div>
+             </div> : <div>
+             <h1>Welcome dear {this.state.username}</h1>
+                 <Link to="/profile">Profile</Link>
+                 <a href="/home" onClick={this.logout}>log Out</a>
+                 </div>
             
           );
      }
