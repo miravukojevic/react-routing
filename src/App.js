@@ -1,28 +1,51 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { 
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  withRouter } from 'react-router-dom';
+  import Register from './Register'
 import './App.css';
 
+import Login from './Login'
+import Home from './Home'
+import Admin from './Admin'
+import Profile from './Profile'
+
+const NoMatch = () => (
+ <div>404</div>
+);
+
 class App extends Component {
+  state = {
+    authenticated: true
+  }
+  requireAuth = (nextState, replace, next) => {
+    if (!this.state.authenticated) {
+      replace({
+        pathname: "/login",
+        state: {nextPathname: nextState.location.pathname}
+      });
+    }
+    next();
+  }
+  
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <div className="router">
+          <Switch>
+            <Route exact path="/"  onEnter={this.requireAuth} component={Home} />
+            <Route path="/login" component={Login} />
+            <Route path="/admin" component={Admin} />
+            <Route path="/Register" component={Register} />
+            <Route path="/profile" component={Profile} />
+            <Route  component={NoMatch} />
+          </Switch>
+        </div>
       </div>
     );
   }
 }
 
-export default App;
+export default withRouter(App);

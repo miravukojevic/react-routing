@@ -6,9 +6,63 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-align: left
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+.router{
+  width: 600px;
+  margin: 30px auto;
+  padding: 20px;
+  background:rgba(169, 205, 112, 0.3607843137254902);
+  border-radius: 5px;
+}
+.router a{
+    padding: 10px 0px;
+    background: #98C252;
+    text-decoration: none;
+    border-radius: 5px;
+    color: #fff;
+    width: 200px;
+    display: block;
+    text-transform: uppercase;
+    margin: 0 auto 15px auto;
+}
+.router a:hover {text-decoration: none;background: #729634; color: #fff }
+ul{list-style-type: none;
+  margin: 0;
+  padding: 0;}
+h1{
+margin-bottom: 60px!important;
+font-weight: 600;
+color: #545454 !important;
+}
+label {display: block; float: left; color: #525252; font-weight: bold}
+input{border: 1px solid #787878; padding: 5px; border-radius: 5px; }
+.insideform{padding: 20px}
+h4{text-align: left; float: left}
+.modal{
+background: #00000085;
+padding-top: 20%
+}
+.text-danger{float: right}
+.email{
+  border: 1px solid #88BA4B;
+  padding: 5px;
+  margin-bottom: 5px;
+  width: 80%;
+  margin: 10px auto;
+  text-align: left
+}
+.email:empty {
+  display: none
+}
+.removeItem{
+  float:right;
+  font-weight: bold;
+  color: red;
+  cursor: pointer
 }
