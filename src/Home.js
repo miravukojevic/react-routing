@@ -18,7 +18,7 @@ import {
         if(checkCurrent){
             this.setState({
                 isAuthenticated: true,
-                username: checkCurrent.email.substring(0, checkCurrent.email.lastIndexOf("@"))
+                username: checkCurrent.value.email.substring(0, checkCurrent.value.email.lastIndexOf("@"))
             })
         }
     }

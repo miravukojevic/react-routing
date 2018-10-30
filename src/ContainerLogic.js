@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import validator from 'validator';
 import { BrowserRouter as Router, Route, Link, withRouter } from "react-router-dom";
+import { updateLocalStorage } from './helperFunctions';
 
 class ContainerLogic extends Component {
     state = { 
@@ -19,7 +20,8 @@ class ContainerLogic extends Component {
         isValidPasword: true,
         isValidRepeatPassword: true,
         isValidOldPassword: true,
-        password: ''
+        password: '',
+        updatedList: []
     }
 
     LocalDataGet = () => {
@@ -58,7 +60,7 @@ class ContainerLogic extends Component {
         const oldPassword = (value) => {
             let checkCurrent= JSON.parse(localStorage.getItem('current'));
             console.log(value)
-            if (checkCurrent.password == value) {
+            if (checkCurrent.value.password == value) {
                 return true
             }
             return false
@@ -109,25 +111,28 @@ class ContainerLogic extends Component {
     onUpdate = (e) => {
         e.preventDefault();
         console.log('update')
-        let loginCheck = JSON.parse(localStorage.getItem('list'));
-        let checkCurrent= JSON.parse(localStorage.getItem('current'));
-        let i = 0
-            for(i; i < loginCheck.length; i++){
-
-                console.log('LOOP', i)
+        if (JSON.parse(localStorage.getItem('list'))) {
+            const loginCheck = JSON.parse(localStorage.getItem('list'));
+            let checkCurrent= JSON.parse(localStorage.getItem('current'));
+           
+            let updatedListOfEditedProfiles = loginCheck.filter(item => item.id !== checkCurrent.id )
+            const updateditem = {
+                id: this.state.email,
+                value: {
+                    username: this.state.username,
+                    password: this.state.password,
+                    email: this.state.email
+                }
+            };
+            console.log(updateditem)
+            updateLocalStorage('list', [...updatedListOfEditedProfiles,updateditem])
+            updateLocalStorage('current', updateditem)
+            this.setState({
+                isOpen: true
+            })
             
-                if(checkCurrent.email == loginCheck[i].id && checkCurrent.password == loginCheck[i].value.password) {
-
-                    console.log('MATCH USER')
-                    this.setState({
-                        username: loginCheck[i].value.username,
-                        email: loginCheck[i].id
-
-                    })
-                    // this.state.username = loginCheck[i].value.username
-
-                } 
-            }
+            
+        }
     }
 
     onSubmit = (e) => {
@@ -213,9 +218,12 @@ class ContainerLogic extends Component {
             })
             localStorage.setItem('current', JSON.stringify(
                 {
-                    email: this.state.email,
-                    password: this.state.password,
-                    username: this.state.username
+                    id: this.state.email,
+                    value: {
+                        username: this.state.username,
+                        password: this.state.password,
+                        email: this.state.email
+                    }
                 }))
         } else {
             this.setState({
@@ -240,15 +248,27 @@ class ContainerLogic extends Component {
         // localStorage.setItem("list", JSON.stringify([
         //     {
         //         id: "test@admin.com",
-        //         password: 'admin' 
+        //         value: {
+        //             username: 'marko',
+        //             password: 'marko',
+        //             email: 'test@admin.com'
+        //         }
         //     },
         //     {
         //         id: "mira@admin.com",
-        //         password: 'mira' 
+        //         value: {
+        //             username: 'mira',
+        //             password: 'mirka',
+        //             email: 'mira@admin.com'
+        //         }
         //     },
         //     {
-        //         id: "marko@admin.com",
-        //         password: 'marko' 
+        //         id: "anja@admin.com",
+        //         value: {
+        //             username: 'anjica',
+        //             password: 'anjica',
+        //             email: 'anjica@admin.com'
+        //         }
         //     }]))
     }
 
@@ -257,6 +277,14 @@ class ContainerLogic extends Component {
              isOpen: false
          })
      }
+     closeModalEdit = () => {
+        this.setState({
+            isOpen: false
+        })
+        this.props.history.push({
+           pathname: `/profile`
+       })
+    }
     render() { 
         return ( 
             <div>

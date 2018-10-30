@@ -52,7 +52,7 @@ const oldpassword = (isValidOldPassword) => {
 const EditProfile = () => (
     
     <div className="insideform">
-        <ContainerLogic render={({state, handleChange, onUpdate, closeModal, empty}) => (
+        <ContainerLogic render={({state, handleChange, onUpdate, closeModalEdit, empty}) => (
             <div className="form-group">
             <form>
                 <div className="form-group">
@@ -82,7 +82,7 @@ const EditProfile = () => (
                 </div>
                 <button className="btn btn-secondary" onClick={onUpdate} type="submit" disabled={ !empty() || !state.isValidEmail || !state.isValidPasword || !state.isValidRepeatPassword || !state.isValidUsername}>Update</button>
             </form>
-            {state.isOpen ? <Modal bodyModal="User already exist" close="We are sorry :(" closeModal={closeModal} /> : null}
+            {state.isOpen ? <Modal bodyModal="You successfully updated your profile" close="Nice..." closeModal={closeModalEdit} /> : null}
         </div>
         
         )}>

@@ -1,11 +1,7 @@
 import React from 'react';
 import { 
     BrowserRouter as Router,
-    Route,
-    Link,
-    Redirect,
-    Switch,
-    withRouter } from 'react-router-dom'
+    Link } from 'react-router-dom'
 
 class Profile extends React.Component {
     state = { 
@@ -21,7 +17,7 @@ class Profile extends React.Component {
 
                 console.log('LOOP', i)
             
-                if(checkCurrent.email == loginCheck[i].id && checkCurrent.password == loginCheck[i].value.password) {
+                if(checkCurrent.value.email == loginCheck[i].id && checkCurrent.value.password == loginCheck[i].value.password) {
 
                     console.log('MATCH USER')
                     this.setState({
@@ -29,7 +25,6 @@ class Profile extends React.Component {
                         email: loginCheck[i].id
 
                     })
-                    // this.state.username = loginCheck[i].value.username
 
                 } 
             }
