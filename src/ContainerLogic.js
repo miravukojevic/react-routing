@@ -31,6 +31,9 @@ class ContainerLogic extends Component {
 
     handleChange = (inputName, event) => {
         //  console.log(this.state.isValidUsername)
+        this.setState({
+            email: '',
+        })
         const email = (value) => {
             if (!validator.isEmail(value)) {
               return false
@@ -295,6 +298,7 @@ class ContainerLogic extends Component {
                    onSubmit: this.onSubmit,
                    id: this.id,
                    closeModal: this.closeModal,
+                   closeModalEdit: this.closeModalEdit,
                    empty: this.empty,
                    onUpdate: this.onUpdate
 
