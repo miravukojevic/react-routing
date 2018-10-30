@@ -50,31 +50,11 @@ const oldpassword = (isValidOldPassword) => {
 };
 
 class EditProfile extends React.Component {
-    state = { 
-        email: '',
-        username: '',
-        oldPassword: '',
-        password: '',
-        repeatPassword: '',
-        oldData: false
 
-     }
-     componentDidMount = () => {
-         let currentUser = JSON.parse(localStorage.getItem('current'));
-        
-         this.setState ({
-            email: currentUser.value.email,
-            username: currentUser.value.username,
-            oldPassword: currentUser.value.password,
-            password: '',
-            repeatPassword: '',
-            oldData: true
-         })
-     }
     render() { 
         return ( 
             <div className="insideform">
-            <ContainerLogic render={({state, handleChange, onUpdate, closeModalEdit, empty}) => (
+            <ContainerLogic isEditing={true} render={({state, handleChange, onUpdate, closeModalEdit, empty}) => (
                 <div className="form-group">
                 <form>
                     <div className="form-group">

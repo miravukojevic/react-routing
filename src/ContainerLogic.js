@@ -243,6 +243,19 @@ class ContainerLogic extends Component {
 
     }
     componentDidMount = () => {
+
+        if(this.props.isEditing) {
+            let currentUser = JSON.parse(localStorage.getItem('current'));
+        
+         this.setState ({
+            email: currentUser.value.email,
+            username: currentUser.value.username,
+            oldPassword: currentUser.value.password,
+            password: '',
+            repeatPassword: '',
+            oldData: true
+         })
+        }
         const admin = {
             email: "admin@admin.com",
             password: 'admin'
