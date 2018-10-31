@@ -7,7 +7,7 @@ import { password } from './helperFunctions';
 const Login = () => (
     
     <div className="insideform">
-        <ContainerLogic render={({state, handleChange,  onLogin, closeModal}) => (
+        <ContainerLogic render={({state, handleChange,  onLogin, closeModal, logout}) => (
             !state.loggedIn ?
             <div className="form-group">
             <form>
@@ -24,7 +24,11 @@ const Login = () => (
                 <button type="submit" className="btn btn-secondary" onClick={onLogin} disabled={!state.isValidEmail || !state.isValidPassword }>Login</button>
             </form>
             {state.isOpen ? <Modal bodyModal="There is no user in local storage" close="You can do that better" closeModal={closeModal} /> : null}
-        </div> : <div>You are already logged in <i className="fa fa-heart" style={{color: 'red'}}></i></div>
+        </div> : 
+        <div>
+            You are already logged in <i className="fa fa-heart" style={{color: 'red'}}></i>
+            <a href="/home" style={{marginTop: '10px'}}onClick={logout}>log Out</a>
+        </div>
         
         )}>
           

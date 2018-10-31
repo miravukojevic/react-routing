@@ -185,6 +185,12 @@ class ContainerLogic extends Component {
         }
         return true
     }
+    logout = () => {
+        this.setState({
+            loggedIn: false
+        })
+        localStorage.removeItem('current');
+    }
     onLogin = (e) => {
         e.preventDefault();
 
@@ -328,7 +334,8 @@ class ContainerLogic extends Component {
                    closeModal: this.closeModal,
                    closeModalEdit: this.closeModalEdit,
                    empty: this.empty,
-                   onUpdate: this.onUpdate
+                   onUpdate: this.onUpdate,
+                   logout: this.logout
 
                })}
              
