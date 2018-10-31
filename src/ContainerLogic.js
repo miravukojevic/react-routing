@@ -17,7 +17,7 @@ class ContainerLogic extends Component {
         isOpen: false,
         isValidEmail: true,
         isValidUsername: true,
-        isValidPasword: true,
+        isValidPassword: true,
         isValidRepeatPassword: true,
         isValidOldPassword: true,
         password: '',
@@ -31,9 +31,7 @@ class ContainerLogic extends Component {
 
     handleChange = (inputName, event) => {
         //  console.log(this.state.isValidUsername)
-        this.setState({
-            email: '',
-        })
+
         const email = (value) => {
             if (!validator.isEmail(value)) {
               return false
@@ -89,7 +87,7 @@ class ContainerLogic extends Component {
             console.log(this.state.password)
             this.setState({
                 password: event.target.value,
-                isValidPasword: password(event.target.value),
+                isValidPassword: password(event.target.value),
             })
 
             return;
@@ -192,8 +190,15 @@ class ContainerLogic extends Component {
 
         let loginCheck = JSON.parse(localStorage.getItem('list'));
         let checkAdmin= JSON.parse(localStorage.getItem('admin'));
-        console.log(checkAdmin)
         let checkUser = false;
+
+         // Check if user that logged in is Admin
+         if (checkAdmin.value.email === this.state.email ){
+            
+            this.props.history.push({
+                pathname: `/admin`
+            })
+        }
 
         // Check if user already exist in local storage
         
@@ -213,7 +218,7 @@ class ContainerLogic extends Component {
             
 
         
-        console.log('checkUser', checkUser)
+
 
         if (checkUser) {
             this.props.history.push({
@@ -233,12 +238,9 @@ class ContainerLogic extends Component {
                 isOpen: true
             })
         }
-        // Check if user that logged in is Admin
-        if (checkAdmin.email == this.state.email ){
-            this.props.history.push({
-                pathname: `/admin`
-            })
-        }
+        console.log('checkAdmin', checkAdmin.value.email)
+        console.log('state email', this.state.email)
+       
 
 
     }
@@ -257,8 +259,12 @@ class ContainerLogic extends Component {
          })
         }
         const admin = {
-            email: "admin@admin.com",
-            password: 'admin'
+            id: "admin@admin.com",
+            value: {
+                username: 'admin',
+                password: 'admin',
+                email: 'admin@admin.com'
+            }
         }
         localStorage.setItem("admin", JSON.stringify(admin))
         // localStorage.setItem("list", JSON.stringify([

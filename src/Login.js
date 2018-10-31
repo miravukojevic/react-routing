@@ -18,7 +18,7 @@ const password = (isValidPassword) => {
 
       )
     }
-    return ``
+    return `Paasword is valid`
 };
 
 const Login = () => (
@@ -30,14 +30,14 @@ const Login = () => (
                 <div className="form-group">
                     <label>Email</label>
                     {!state.isValidEmail ? <span className="text-danger">{email(state.isValidEmail, state.email)}</span> : ''}
-                    <input value={state.email} type="text" name={state.name} onChange={(e) => handleChange('email', e)} key={state.key} placeholder="Enter email adress" className={`form-control ${state.isValidEmail ? '' : 'is-invalid'}`} />
+                    <input value={state.email} type="text" name='email' onChange={(e) => handleChange('email', e)} key={state.key} placeholder="Enter email adress" className={`form-control ${state.isValidEmail ? '' : 'is-invalid'}`} />
                 </div>
                 <div className="form-group">
                     <label>Password</label>
-                    {!state.isValidPasword ? <span className="text-danger">{password(state.isValidPasword)}</span> : ''}
-                    <input name={state.password} onChange={(e) => handleChange('password', e)} className={`form-control ${state.isValidPasword ? '' : 'is-invalid'}`}  type="password" />
+                    {!state.isValidPassword ? <span className="text-danger">{password(state.isValidPassword)}</span> : ''}
+                    <input value={state.password} name='password' onChange={(e) => handleChange('password', e)} className={`form-control ${state.isValidPassword ? '' : 'is-invalid'}`}  type="password" />
                 </div>
-                <button type="submit" className="btn btn-secondary" onClick={onLogin} disabled={!state.isValidEmail || !state.isValidPasword }>Login</button>
+                <button type="submit" className="btn btn-secondary" onClick={onLogin} disabled={!state.isValidEmail || !state.isValidPassword }>Login</button>
             </form>
             {state.isOpen ? <Modal bodyModal="There is no user in local storage" close="You can do that better" closeModal={closeModal} /> : null}
         </div>

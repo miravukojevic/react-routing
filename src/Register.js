@@ -57,15 +57,15 @@ const Register = () => (
                 </div>
                 <div className="form-group">
                     <label>Password</label>
-                    {!state.isValidPasword ? <span className="text-danger">{password(state.isValidPasword)}</span> : ''}
-                    <input type="text" name={state.password} onChange={(e) => handleChange('password',e)}  className={`form-control ${state.isValidPasword ? '' : 'is-invalid'}`} type="password" />
+                    {!state.isValidPassword ? <span className="text-danger">{password(state.isValidPassword)}</span> : ''}
+                    <input type="text" name={state.password} onChange={(e) => handleChange('password',e)}  className={`form-control ${state.isValidPassword ? '' : 'is-invalid'}`} type="password" />
                 </div>
                 <div className="form-group">
                     <label>Repeat Password</label>
                     {!state.isValidRepeatPassword ? <span className="text-danger">{repeatpassword(state.isValidRepeatPassword)}</span>:''}
                     <input name={state.repeatPassword} name={state.repeatPassword} onChange={(e) => handleChange('repeatPassword',e)}  className={`form-control ${state.isValidRepeatPassword ? '' : 'is-invalid'}`}  type="password" />
                 </div>
-                <button className="btn btn-secondary" onClick={onSubmit} type="submit" disabled={ !empty() || !state.isValidEmail || !state.isValidPasword || !state.isValidRepeatPassword || !state.isValidUsername}>Register</button>
+                <button className="btn btn-secondary" onClick={onSubmit} type="submit" disabled={ !empty() || !state.isValidEmail || !state.isValidPassword || !state.isValidRepeatPassword || !state.isValidUsername}>Register</button>
             </form>
             {state.isOpen ? <Modal bodyModal="User already exist" close="We are sorry :(" closeModal={closeModal} /> : null}
         </div>

@@ -74,15 +74,15 @@ class EditProfile extends React.Component {
                     </div>
                     <div className="form-group">
                         <label>New Password</label>
-                        {!state.isValidPasword ? <span className="text-danger">{password(state.isValidPasword)}</span> : ''}
-                        <input type="text" value={state.password} onChange={(e) => handleChange('password',e)}  className={`form-control ${state.isValidPasword ? '' : 'is-invalid'}`} type="password" />
+                        {!state.isValidPassword ? <span className="text-danger">{password(state.isValidPassword)}</span> : ''}
+                        <input type="text" name={state.password} value={state.password} onChange={(e) => handleChange('password',e)}  className={`form-control ${state.isValidPassword ? '' : 'is-invalid'}`} type="password" />
                     </div>
                     <div className="form-group">
                         <label>Repeat Password</label>
                         {!state.isValidRepeatPassword ? <span className="text-danger">{repeatpassword(state.isValidRepeatPassword)}</span>:''}
                         <input name={state.repeatPassword} name={state.repeatPassword} onChange={(e) => handleChange('repeatPassword',e)}  className={`form-control ${state.isValidRepeatPassword ? '' : 'is-invalid'}`}  type="password" />
                     </div>
-                    <button className="btn btn-secondary" onClick={onUpdate} type="submit" disabled={ !empty() || !state.isValidEmail || !state.isValidPasword || !state.isValidRepeatPassword || !state.isValidUsername}>Update</button>
+                    <button className="btn btn-secondary" onClick={onUpdate} type="submit" disabled={ !empty() || !state.isValidEmail || !state.isValidPassword || !state.isValidRepeatPassword || !state.isValidUsername}>Update</button>
                 </form>
                 {state.isOpen ? <Modal bodyModal="You successfully updated your profile" close="Nice..." closeModal={closeModalEdit} /> : null}
             </div>
