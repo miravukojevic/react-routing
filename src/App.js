@@ -4,7 +4,7 @@ import {
   Route,
   Switch,
   withRouter } from 'react-router-dom';
-  import Register from './Register'
+import Register from './Register'
 import './App.css';
 
 import Login from './Login'

@@ -1,53 +1,11 @@
 import React from 'react';
 import ContainerLogic from './ContainerLogic'
 import Modal from './Modal';
-
-const email = (isValidEmail, email) => {
-    if (!isValidEmail) {
-      return (
-          `${email} is not a valid email.`
-
-      )
-    }
-    return `${email} is a valid email.`
-};
-const username = (isValidUsername) => {
-    if (!isValidUsername) {
-      return (
-          `Username must contain at least 8 characters.`
-
-      )
-    }
-    return ``
-};
-const password = (isValidPassword) => {
-    if (!isValidPassword) {
-      return (
-          `Password must contain at least 5 characters.`
-
-      )
-    }
-    return ``
-};
-const repeatpassword = (isValidRepeatPassword) => {
-    if (!isValidRepeatPassword) {
-      return (
-          `Password must match.`
-
-      )
-    }
-    return ``
-};
-const oldpassword = (isValidOldPassword) => {
-    
-    if (!isValidOldPassword) {
-      return (
-          `Password must match with old password.`
-
-      )
-    }
-    return ``
-};
+import { email } from './helperFunctions';
+import { username } from './helperFunctions';
+import { password } from './helperFunctions';
+import { repeatpassword } from './helperFunctions';
+import { oldpassword } from './helperFunctions';
 
 class EditProfile extends React.Component {
 

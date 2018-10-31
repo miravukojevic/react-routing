@@ -1,30 +1,14 @@
 import React from 'react';
 import ContainerLogic from './ContainerLogic'
 import Modal from './Modal';
-
-const email = (isValidEmail, email) => {
-    if (!isValidEmail) {
-      return (
-          `${email} is not a valid email.`
-
-      )
-    }
-    return `${email} is a valid email.`
-};
-const password = (isValidPassword) => {
-    if (!isValidPassword) {
-      return (
-          `Password must contain at least 5 characters.`
-
-      )
-    }
-    return `Paasword is valid`
-};
+import { email } from './helperFunctions';
+import { password } from './helperFunctions';
 
 const Login = () => (
     
     <div className="insideform">
         <ContainerLogic render={({state, handleChange,  onLogin, closeModal}) => (
+            !state.loggedIn ?
             <div className="form-group">
             <form>
                 <div className="form-group">
@@ -40,11 +24,12 @@ const Login = () => (
                 <button type="submit" className="btn btn-secondary" onClick={onLogin} disabled={!state.isValidEmail || !state.isValidPassword }>Login</button>
             </form>
             {state.isOpen ? <Modal bodyModal="There is no user in local storage" close="You can do that better" closeModal={closeModal} /> : null}
-        </div>
+        </div> : <div>You are already logged in <i className="fa fa-heart" style={{color: 'red'}}></i></div>
         
         )}>
           
         </ContainerLogic>
+    
        
     </div>
   );

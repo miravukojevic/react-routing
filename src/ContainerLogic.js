@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import validator from 'validator';
-import { BrowserRouter as Router, Route, Link, withRouter } from "react-router-dom";
+import { BrowserRouter as Router, withRouter } from "react-router-dom";
 import { updateLocalStorage } from './helperFunctions';
 
 class ContainerLogic extends Component {
@@ -21,7 +21,8 @@ class ContainerLogic extends Component {
         isValidRepeatPassword: true,
         isValidOldPassword: true,
         password: '',
-        updatedList: []
+        updatedList: [],
+        loggedIn: false
     }
 
     LocalDataGet = () => {
@@ -198,6 +199,7 @@ class ContainerLogic extends Component {
             this.props.history.push({
                 pathname: `/admin`
             })
+            checkUser = true
         }
 
         // Check if user already exist in local storage
@@ -245,7 +247,11 @@ class ContainerLogic extends Component {
 
     }
     componentDidMount = () => {
-
+        if(JSON.parse(localStorage.getItem('current'))){
+            this.setState({
+                loggedIn: true
+            })
+        }
         if(this.props.isEditing) {
             let currentUser = JSON.parse(localStorage.getItem('current'));
         
@@ -267,6 +273,9 @@ class ContainerLogic extends Component {
             }
         }
         localStorage.setItem("admin", JSON.stringify(admin))
+
+        // I need to leave this commented out for testing, Stojko :)
+
         // localStorage.setItem("list", JSON.stringify([
         //     {
         //         id: "test@admin.com",
@@ -327,5 +336,4 @@ class ContainerLogic extends Component {
             
     }
 }
- // this.state, this.handleChange, this.onLogin, this.onSubmit, this.id, this.closeModal, this.empty
 export default withRouter(ContainerLogic);

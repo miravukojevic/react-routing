@@ -1,11 +1,7 @@
 import React from 'react';
 import { 
     BrowserRouter as Router,
-    Route,
-    Link,
-    Redirect,
-    Switch,
-    withRouter } from 'react-router-dom'
+    Link,} from 'react-router-dom'
 
  class Home extends React.Component {
      state = { 

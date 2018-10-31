@@ -38,8 +38,8 @@ class Admin extends React.Component {
 
         return (
             <div>
-                {registeredUsers.map(user => (
-                    <div className="email">
+                {registeredUsers.map((user, key) => (
+                    <div key={key} className="email">
                         {user.id}
                     <span onClick={() => this.handleClick(user.id)} className="removeItem">x</span>
                 </div>

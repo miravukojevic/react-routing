@@ -8,21 +8,36 @@ class Profile extends React.Component {
         username: '',
         email: '',
         isAuthenticated: false,
+        checkAdmin: false
      }
     componentDidMount = () => {
         let loginCheck = JSON.parse(localStorage.getItem('list'));
         let checkCurrent= JSON.parse(localStorage.getItem('current'));
+        let checkAdmin = JSON.parse(localStorage.getItem('admin'));
         let i = 0
             for(i; i < loginCheck.length; i++){
 
                 console.log('LOOP', i)
             
-                if(checkCurrent.value.email == loginCheck[i].id && checkCurrent.value.password == loginCheck[i].value.password) {
+                if(checkCurrent.value.email === loginCheck[i].id && checkCurrent.value.password === loginCheck[i].value.password) {
 
                     console.log('MATCH USER')
                     this.setState({
                         username: loginCheck[i].value.username,
                         email: loginCheck[i].id
+
+                    })
+
+                } 
+
+                // Check if it's admin
+                if(checkCurrent.value.email === checkAdmin.id && checkCurrent.value.password === checkAdmin.value.password) {
+
+                    console.log('MATCH USER')
+                    this.setState({
+                        username: checkAdmin.value.username,
+                        email: checkAdmin.id,
+                        checkAdmin: true
 
                     })
 
